@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+p {
+	text-align:justify;
+	text-align-last: center;
+	margin-left:18%;
+	margin-right:18%;
+}
+
+#logo {
+	width:25%;
+	padding: none;
+	margin-bottom:2%;
+	margin-top:3%;
+	margin-left:37%;
+	margin-right:auto;
+}
+.logo {
+	background-color:#f5e0b7;
+	}
+
+.first {
+        background-color:#735751;;
+}
+.first p, .second p, .third p{
+	color:white;
+	font-size:20px;
+	line-height:1.5;
+}
+
+.third p {
+	color:black;
+}
+.second {
+        background-color: #80251e;
+}
+.second h2 {
+	color:beige;
+}
+.third {
+        background-color: #d6ba73;
+}
+.fourth {
+	background-color: #a05050
+</style>
+	<div class="intro logo">
+		<br><br><img src="../../static/logo.png" id="logo">
+		</div>
+		<div class="intro first">
+		<p>Libera is a tool designed to conect users with new content. The informational ecosystem of today's world is constantly shifting and changing. Staying relevant requires constant self-education and a commitment to the cutting edge. Libera's services make keeping up in this informational labyrinth intuitive and enjoyable. Libera does the hard work for your, seeks out new content, and delivers it to you based on <i>your</i> interests. Libera evolves with the informational ecosystem, using Machine Learning techniques to discover new subtopics and categories within specific knowledge domains. Libera is powered by a custom designed webcrawler that moves through the labyrinth for you, constantly running to ensure all passageways are explored, even as they continue to shift and grow.</p><br>
+		<p>In it's current state, Libera is only equipped to discover content related to data science, but the story doesn't end here. Flexible programming allows Libera's machine learning models to be easily retrained in new fields and a database optimized for parrelelization means Libera's webcrawling services can run simultaneously on multiple topics without sacrificing efficiency. This is only the beginning of a project that seeks to bridge the gap between user and information and help <i>you</i> stay up-to-date. Feedback allows Libera to better learn your interests and to improve its decision making about what content is and isn't relevant both to a general domain and a specific subtopic. While Libera is still in early development, it is hoped that as it continues to grow it can make more and more intelligent predictions about content and each individual users interest.</p>
+		<br>
+		<p>Thank you for your interest in Project: Libera. Check back often for updates and news about Libera and please feel free to contact me with feedback. My contact information can be found at the bottom of each page.
+		<br>
+		</div>
+		<div class="intro second"><h2>About the Developer</h2></div>
+		<div class="intro third">
+		<p>Project: Libera was created by Paul Black during his time as a student of Metis' Data Science Bootcamp in Chicago. Paul is new to the Data Science world and excited to develop his skills and continue to grow. Libera was created first as a utility for its creator, but grew into a social platform for anyone to use. Paul currently lives in Chicago, Illinois after moving back to the Midwest from Boston where he attended school. Paul is originally from Byron, Illinois, just south of Rockford on route 2. He has always had a love for math and science, but due to a desire to address real world problems and real world people, he studies cutlural anthropology during his undergraduate career at Boston University.  There he grew to love narrative and story telling and also learned basic programming skills in his spare time. With his unique set of passions and interests data science was an obvious fit. If you are interested in learning more about Paul or contributing to Project: Libera you can find contact information at the bottom of this page.</p><br>
+		</div>
+		<div class="intro fourth">
+		<h3 style="color:black; text-align:center">Contact Me</h3>
+		<p>e-mail: paul.laifu.black@gmail.com   linkedin.com/in/paulfblack   github.com/paulfblack   paulfblack.github.io</p>
+	</div>
+{% endblock %}

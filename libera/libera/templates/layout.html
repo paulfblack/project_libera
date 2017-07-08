@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project: Libera</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	</head>
+	<body>
+<style>
+.psw1 a {
+	color:#d6ba73;
+	text-decoration:none;
+}
+.psw1 {
+	color:white;
+}
+#signin {
+	text-align:left; 
+	margin-left:30px; 
+	color:#80251e;
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #80251e;
+    color: white;
+    padding: 14px 20px;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn1 {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #80251e;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    height:30%;
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+#loginlogo {
+    width:10%;
+    float:left;
+    border-radius:0;
+}
+
+.container1 {
+    padding: 16px;
+}
+
+span.psw1 {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #f5e0b7;
+    margin: 5% 30% 15% 30%; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #80251e;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw1 {
+       display: block;
+       float: none;
+    }
+    .cancelbtn1 {
+       width: 100%;
+    }
+}
+</style>
+		<div class="page">
+			<div class="metanav">
+			<ul>
+				<li class="banner"><a id="libera" href="{{ url_for('landing_page')}}">Project Libera</a></li>
+				<li><a href="{{ url_for('about') }}">About</a></li>
+			{% if not session.logged_in %}
+				<li><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></li>
+				<li><a href="{{ url_for('register') }}" id='register'>Sign Up</a></li>
+			{% else %}
+				<li><a href="{{ url_for('logout') }}" id='logout'>Log Out</a></li>
+                                <li><a href="{{ url_for('account') }}" id='account'>Account</a></li>
+				<li><a href="{{ url_for('account') }}" id='feed'>Feed</a></li>
+			{% endif %}
+			</ul>
+			</div>
+		{% block body %}{% endblock %}
+		</div>
+<div id="id01" class="modal">
+  <form class="modal-content animate" action="{{ url_for('account') }}" >
+	  <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<h2 id="signin">Sign in</h2>
+      <img src="../../static/logo.png" alt="Libera" class="loginLogo" id="loginLogo">
+    </div>
+
+    <div class="container1">
+      <label style="float:left; color:#80251e"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label style="float:left; color:#80251e"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+        
+      <button type="submit">Login</button>
+      <input type="checkbox" checked="checked"> remember me
+    </div>
+
+    <div class="container1" style="background-color:#654634; border-top: thick solid #d6ba73; text-align:left">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn1">Cancel</button>
+      <span class="psw1">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+	</body>
+</html>

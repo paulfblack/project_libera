@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1 id="test">For Testing AJAX</h1>
+		<br><br>
+		<p>Vote 1</p>
+		<input type="text" id="input1" value="0"></input>
+		<p>Vote 2</p>
+		<input type="text" id="input2" value="0"></input>
+		<p>test?</p>
+		<input type="text" id="input3" value="0"></input>
+		<br>
+		<button id="button" onclick="postData()">Submit</button>
+		<br>
+		<p>Party: <div id="output">?</div></p>
+		<div id="test"></div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type=text/javascript>
+
+		// From the Flask Ajax tutorial
+		$(function() {
+		$('a#calculate').bind('click', function() {
+			$.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+				a: $('input[name="a"]').val(),
+				b: $('input[name="b"]').val()
+			}, function(data) {
+				$("#result").text(data.result);
+			});
+			return false;
+		});
+		});
+
+		
+  // KEY BINDS TO CHANGE BACKGROUND COLOR
+		$(document).ready(function () {
+			$('body').on('keydown', function( e ) {
+    	  var key = e.which; 
+				var keyAction = { 
+					87  : 'red',
+					65 : 'blue',
+					83: 'cyan',
+					68: 'green',
+					38  : 'pink',
+					37 : 'orange',
+					40: 'yellow',
+					39: 'white'
+				};
+			var propObj = {};                    // Object to store property + value for jQuery methods
+			var keyArr = keyAction[key];
+
+			if(typeof keyArr != 'undefined') {   // Test keyArr (82, 66) is returned/populated to prevent errors
+			propObj.background = keyAction[key];   // Created the jQ Method's object e.g: {background:"red"}
+			$(this).css(propObj);             // Finally create / use 
+			}
+		});
+	});
+	//From the class tutorial
+		$.ajax({
+			type: "POST",
+			contentType: "application/json; charset=utf-8",
+			url: "/test",
+			dataType: "json",
+			async: true,
+			data: "{\"example\": ["+age+","+year+","+nodes+"]}",
+			success: function (data) {
+			d3.select("#test")
+				.text({{_id}})
+	 },
+        error: function (result) {
+        }
+      })
+		</script>
+		<h1>jQuery Example</h1>
+			<p><input type=text size=5 name=a> +
+			<input type=text size=5 name=b> =
+			<span id=result>?</span>
+		<p><a href=# id=calculate>calculate server side</a>
+	</body>
+</html>

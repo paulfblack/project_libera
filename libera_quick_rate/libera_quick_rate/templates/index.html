@@ -1,0 +1,152 @@
+<html>
+<head>
+	<title>Display One Blog</title>
+</head>
+<body>
+	<h1>Unreviewed Data:</h1>
+	
+	<p>URL: <div id='url'></div> <br><br>TEXT: <div id='text'></div></p>
+	<br><p>'left' and 'a' keys for quality = false<br>'right' and 'd' keys for quality = true</p>
+	<br><p>'up' and 'w' keys for previous/undo, 'down' and 's' keys for skip</p>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type=text/javascript>
+	var x = 0; 
+	var previous_url = String(document.getElementById('url').textContent)
+	$(document).ready(function () {
+		$.ajax({
+			url: '/next_entry',
+			contentType: "application/json; charset=utf-8",
+			data: "{\"index\": "+0+"}",
+			type: 'POST',
+			async: true,
+			success: function(data) {
+				document.getElementById('url').textContent = data['url'];
+				document.getElementById('text').textContent = data['text'];
+			},
+			error: function(result) {
+				document.getElementById('url').textContent = "Broken";
+				document.getElementById('text').textContent = "Broken";				
+			}
+		});
+	});
+	
+	$(document).ready(function () {
+		$('body').on('keydown', function ( e ) {
+			var key = e.which;
+			var url = String(document.getElementById('url').textContent)
+			var propObj = {}
+			console.log(previous_url)
+			console.log(url)
+			
+			// up and w keys
+			if(key == 38 || key == 87){
+				$.ajax({
+					url: '/previous_entry',
+					contentType:"application/json",
+					data: JSON.stringify( "{\"link\": \""+previous_url+"\"}"),
+					type: 'POST',
+					async: true,
+				success: function(data) {
+					document.getElementById('url').textContent = data['url'];
+					document.getElementById('text').textContent = data['text'];
+					},
+				error: function(result) {
+					document.getElementById('url').textContent = "Broken";
+					document.getElementById('text').textContent = "Broken";				
+				}		
+				})	
+			}
+			else {
+				// down and s keys
+				if(key == 40 || key == 83) {
+					propObj.background = 'khaki';
+					previous_url = String(document.getElementById('url').textContent)	
+					$(this).css(propObj);
+					$.ajax({
+						url: '/skip_entry',
+						contentType: "application/json",
+						data: JSON.stringify( "{\"link\": \""+url+"\", \"skipped\":True}"),
+						type: 'POST',
+						async: true,
+					success: function(data) {
+						// console.log(data)
+						},
+					error: function(result) {
+						console.log('error')
+						}
+					})
+				}
+				// left and a keys
+				else if(key == 65 || key == 37) {
+					previous_url = String(document.getElementById('url').textContent)	
+					var data =  "{\"link\": "+url+", \"quality\": False }"
+					// console.log(data);
+					// console.log(url);
+					propObj.background = 'pink';
+					$(this).css(propObj);
+					$.ajax({
+						url: '/update_entry',
+						contentType: "application/json",
+						data: JSON.stringify( "{\"link\": \""+url+"\", \"quality\":False}"),
+						type: 'POST',
+						async: true,
+					success: function(data) {
+						console.log(data)
+						},
+					error: function(result) {
+						console.log('syz')
+						}
+					})
+				}
+				// right and d keys
+				else if(key == 68 || key == 39) {
+					previous_url = String(document.getElementById('url').textContent)
+					propObj.background = 'aquamarine';
+					$(this).css(propObj);		
+					$.ajax({
+						url: '/update_entry',
+						contentType: "application/json",
+						data: JSON.stringify("{\"link\": \""+url+"\", \"quality\": True}"),
+						type: 'POST',
+						async: true,
+					success: function(data) {
+						console.log(data)
+					},
+					error: function(result) {
+						console.log('syz')
+					}
+				})
+				}
+				
+			
+					$.ajax({
+							url: '/next_entry',
+							contentType: "application/json; charset=utf-8",
+							data: "{\"index\": "+x+"}",
+							type: 'POST',
+							async: true,
+						success: function(data) {
+							document.getElementById('url').textContent = data['url'];
+							document.getElementById('text').textContent = data['text'];
+							},
+						error: function(result) {
+							document.getElementById('url').textContent = "Broken";
+							document.getElementById('text').textContent = "Broken";				
+						}		
+					});
+				}
+			});
+			});
+		$(document).ready(function () {
+			$('body').on('keyup', function ( e ) {
+			var propObj = {};
+			propObj.background = 'white';
+			$(this).css(propObj);
+					
+			});
+			})
+	
+	</script>
+</body>
+
+</html>

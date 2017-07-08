@@ -1,0 +1,270 @@
+{% extends "layout.html" %}
+{% block body %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://cdn.embed.ly/jquery.embedly-3.0.5.min.js" type="text/javascript"></script>
+<script src="http://cdn.embed.ly/jquery.preview-0.3.2.min.js" type="text/javascript"></script>
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+<style class="embedly-css">
+  @import url(https://fonts.googleapis.com/css?family=Merriweather);
+  .oneEntry{
+    padding:100px;
+    margin:auto;
+  }
+  .iconStack{
+    clear:left;
+    float:left;
+    width:5%;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:15px;
+}
+  .first_card, .second_card{
+	width:50%;
+	float:left;
+}
+  .first_card {
+	float:left;
+}
+  .second_card {
+	overflow:hidden;
+}
+  .first_card .embedly-card{
+    float:left;
+  }
+  .card {
+    float:left;
+    padding:0px;
+    clear:none;
+    margin:5px 5px 10px 0px;
+    font-family: 'Merriweather', serif;
+  }
+  .topic {
+    position:relative;
+    overflow:hidden;
+}
+  .card .title {
+    margin-bottom:5px;
+  }
+  .card .action {
+    color: #fa4b2a;
+  }
+  .card a, .card .action {
+    color: black;
+    clear: None;
+  }
+
+  .art-bd-img {
+   height:225px;
+}
+  h2 {
+    text-align: center;
+  }
+  .icon{
+    width: 45px;
+    height: 45px;
+    padding:0px;
+    margin-bottom:45px;
+    clear:left;
+    float:left;
+  }
+  .icon:hover {
+    cursor:pointer;
+}
+  #test{
+   border:4px maroon solid;
+}
+  #leftArrow, #rightArrow {
+    margin-top:20px;
+    margin-bottom:40px;
+}
+
+#leftArrow {
+    margin-left:150px;
+    clear:left;
+    float:left;
+}
+#rightArrow{
+    margin-left:450px;
+    clear:right;
+    float:left;
+}
+
+.second_card, .first_card {
+    width: 50%;
+    left-margin: 50px;
+}
+
+.topic_header {
+	clear:both;
+	padding-top:20px;
+	padding-bottom:5px;
+	text-align:center;
+	height:50px;
+	width:100%;
+	background-color:#4E2E28;
+}
+.card {
+	width:100%;
+	clear:both;
+}
+
+.topic_header span {
+	color:white;
+	vertical-align:center;
+	font-size:30px;
+	text-align:center;
+}
+
+#clear_navbar {
+	height:48px;
+	background-color:#4E2E28;
+}
+.icon {
+	font-size: 1.5em;
+}
+.active {
+	color:#d6ba73;	
+}
+
+
+.flag .active {
+	color:#80251e;
+}
+.flag:hover {
+	color:#80251e;
+	text-shadow:2px 2px black;
+}
+.nextIcon:hover {
+	color:#d6ba73;
+	text-shadow:2px 2px #80251e
+}
+.thumbsUp:hover, .thumbsDown:hover {
+	color:#d6ba73;
+	text-shadow: 2px 2px #735751;
+}
+</style>
+<div id="clear_navbar">
+</div>
+{% for topic in interests %}
+<div class="topic_header">
+<span>{{ topic_dict[topic] | safe }}<span>
+</div>
+<div class="card">
+<div class="first_card">
+<div class="iconStack">
+<span class='thumbsUp icon'><i class="material-icons icon">thumb_up</i></span>
+<span class='thumbsDown icon'><i class="material-icons icon">thumb_down</i></span>
+<span class='flag icon'><i class="material-icons icon">flag</i></span>
+<span class='refresh icon' id="{{topic}}"><i class="material-icons icon nextIcon">navigate_next</i></span>
+</div>
+<div class="topic">
+<a id="test" href={{interests[topic]['url1']}} data-card-key="883a9a2b7da5488e8d93fab8d9a0f786" class="embedly-card"></a>
+</div>
+</div>
+
+<div class="second_card">
+<div class="iconStack" value="{{topic}}">
+<span class='thumbsUp icon'><i class="material-icons icon">thumb_up</i></span>
+<span class='thumbsDown icon'><i class="material-icons icon">thumb_down</i></span>
+<span class='flag icon'><i class="material-icons icon">flag</i></span>
+<span class='refresh icon' id="{{topic}}"><i class="material-icons icon nextIcon">navigate_next</i></span>
+</div>
+<div class="topic">
+<a href={{interests[topic]['url2']}} data-card-key="883a9a2b7da5488e8d93fab8d9a0f786" class="embedly-card"></a>
+</div>
+</div>
+<br>
+<br>
+</div>
+{% endfor %}
+
+<script>
+$(document).ready(function () {
+    $(".refresh").click(function () {
+                var currentUrl = $(this).parent().next('div').attr('value');
+                $(this).parent().next().empty();
+                var clicked = $(this);
+                var flagged = false;
+                var rated = false;
+                var rating = 0;
+		var topic = $(this).attr('id');
+                if(clicked.prev().children('i').hasClass('active')){
+                        clicked.prev( ).children('i').toggleClass('active');
+                        var flagged = true;
+                }
+                else if(clicked.prev().prev().children('i').hasClass('active')) {
+                        clicked.prev().prev().children('i').toggleClass('active');
+                        var rated = true;
+                        var rating = 0;
+                }
+                else if(clicked.prev().prev().prev().children('i').hasClass('active')) {
+                        clicked.prev().prev().prev().children('i').toggleClass('active');
+                        var rated = true;
+                        var rating = 1;
+                }
+                        
+                $.ajax({
+                        url: '/next_entry',
+                        contentType: "application/json; charset=utf-8",
+                        data: "{\"url\":\""+currentUrl+"\",\"rated\": "+rated+", \"rating\": "+rating+", \"flagged\":"+flagged+", \"cluster\":"+topic+"}",
+                        type: 'POST',
+                        async: true,
+                        success: function(data) {
+				console.log(topic);
+                                console.log(currentUrl);
+                                console.log("rated: " + rated);
+                                console.log("rating: " + rating);
+                                console.log("flagged: " + flagged);
+                                console.log(data['url']);
+                                clicked.parent().next('div').attr('value', data['url']);
+                                clicked.parent().next('.topic').append("<a href=\""+data['url']+"\"data-card-key='883a9a2b7da5488e8d93fab8d9a0f786' class='embedly-card site'></a>");
+                        },
+                        error: function(result) {
+                                clicked.parent().next('.topic').append("<a href=\"https://paulblack.github.io/\"data-card-key='883a9a2b7da5488e8d93fab8d9a0f786' class='embedly-card site'></a>"); 
+          }
+    });
+    });    
+    $(".thumbsUp").click(function () {
+        $(this).children('i').toggleClass('active');
+        if($(this).children('i').hasClass('active')){          
+          if($(this).next(".thumbsDown").children('i').hasClass('active')){
+             $(this).next(".thumbsDown").children('i').toggleClass('active');
+}
+          else if($(this).next().next(".flag").children('i').hasClass('active')){
+             $(this).next().next(".flag").children('i').toggleClass('active');
+}
+
+        }   
+    });
+
+    $(".thumbsDown").click(function () {
+        $(this).children('i').toggleClass('active');
+        if($(this).children('i').hasClass('active')){          
+          if($(this).prev(".thumbsUp").children('i').hasClass('active')){
+             $(this).prev(".thumbsUp").children('i').toggleClass('active');
+}
+          else if($(this).next(".flag").children('i').hasClass('active')){
+             $(this).next(".flag").children('i').toggleClass('active');
+}
+        }   
+    });
+
+    $(".flag").click(function () {
+        $(this).children('i').toggleClass('active');
+        if($(this).children('i').hasClass('active')){          
+          if($(this).prev(".thumbsDown").children('i').hasClass('active')){
+             $(this).prev(".thumbsDown").children('i').toggleClass('active');
+}
+
+          if($(this).prev().prev(".thumbsUp").children('i').hasClass('active')){
+             $(this).prev().prev(".thumbsUp").children('i').toggleClass('active');
+}
+        }   
+    });
+});
+</script>
+
+{% endblock %}
+
+
