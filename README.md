@@ -4,11 +4,11 @@ Project: Libera is an intelligent user content connector I created as my passion
 **Tools Used:** BS4, MongoDB, SQL, SKLearn (Naive Bayes Classification, NMF, Agglomerative Clustering), NLP, Flask, MatPlotLib, Seaborn, Pandas.
   
 ## Pipeline  
-1. Collection of Data - Web Crawler
-  a. Hand Classification
-  b. Tokenization
-  c. Naive Bayes Classification Model
-2. Subtopicing and Agglomerative Clustering
+1. Collection of Data - Web Crawler  
+  a. Hand Classification  
+  b. Tokenization  
+  c. Naive Bayes Classification Model  
+2. Subtopicing and Agglomerative Clustering  
 3. Distribution - Flask App  
   
 ## Designing Project: Libera
