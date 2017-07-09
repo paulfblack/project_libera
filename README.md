@@ -5,7 +5,7 @@ Project: Libera is an intelligent user content connector I created as my passion
   
 ## Pipeline  
 1. Collection of Data - [Web Crawler](https://github.com/paulfblack/project_libera/blob/master/libera_notebooks/Web_Crawler.ipynb)  
-  a. Hand Classification - [Libera Quick Rate](https://github.com/paulfblack/project_libera/tree/master/libera_quick_rate/libera_quick_rate)
+  a. Hand Classification - [Libera Quick Rate](https://github.com/paulfblack/project_libera/tree/master/libera_quick_rate/libera_quick_rate)  
   b. [Tokenization](https://github.com/paulfblack/project_libera/blob/master/libera_notebooks/libera_tokenization.py)  
   c. [Naive Bayes Classification Model](https://github.com/paulfblack/project_libera/blob/master/libera_notebooks/naive_bayes.ipynb) 
 2. [Subtopicing and Agglomerative Clustering](https://github.com/paulfblack/project_libera/blob/master/libera_notebooks/topic_modelling_agglomerative_clustering.ipynb) 
