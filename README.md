@@ -1,3 +1,4 @@
+**Note:** currently moving to a blueprint style Flask system so some features may be missing/incompatible temporarily.
 # Project: Libera
 Project: Libera is an intelligent user content connector I created as my passion project at Metis' Data Science Bootcamp in Chicago. Project: Libera uses a custom designed webcrawler to automatically seek out web content related to the field of Data Science and collect relevant posts on MongoDB. These posts are then subtopiced using NMF based topic modelling and an agglomerative clustering model. The front end allows users to register an account and declare interests from 10 subtopics after which they are provided with web content recommendations based on their selected interests. The recommendations feed allows users to like, dislike, flag, and move through content naturally and uses Embedly cards to provide snapshots of recommended posts.  
   
